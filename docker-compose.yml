@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  app:
+    image: moviesearch
+    container_name: moviesearch
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+      - elasticsearch
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/movies
+      - SPRING_DATASOURCE_USERNAME=movies_user
+      - SPRING_DATASOURCE_PASSWORD=movies_password
+      - SPRING_ELASTICSEARCH_URIS=elasticsearch:9200
+
+  db:
+    image: postgres:16.0
+    container_name: postgres_db
+    environment:
+      POSTGRES_DB: movies
+      POSTGRES_USER: movies_user
+      POSTGRES_PASSWORD: movies_password
+    ports:
+      - "5432:5432"
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.22
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+    ports:
+      - "9200:9200"
