@@ -1,0 +1,17 @@
+{
+  "analysis": {
+    "filter": {
+      "russian_stemmer": {
+        "type": "stemmer",
+        "language": "russian"
+      }
+    },
+    "analyzer": {
+      "russian_analyzer": {
+        "type": "custom",
+        "tokenizer": "standard",
+        "filter": ["lowercase", "russian_stemmer"]
+      }
+    }
+  }
+}

@@ -27,7 +27,7 @@ public class MovieSearchController {
             @RequestParam(name = "size", defaultValue = "10") int size,
             Model model
     ) {
-        Page<Movie> moviesPage = movieService.searchMovies(query, page, size);
+        Page<Movie> moviesPage = movieService.searchMoviesViaElastic(query, page, size);
         model.addAttribute("moviesPage", moviesPage);
         model.addAttribute("query", query);
         return "search";
